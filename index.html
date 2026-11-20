@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Chuyến Du Hành Tình Yêu - Gửi Người Anh Yêu Nhất ✨</title>
+    
+    <!-- Google Fonts tuyển chọn cho phong cách lãng mạn sang trọng -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================
+           1. ROOT & DESIGN SYSTEM
+           ======================================================== */
+        :root {
+            --bg-deep: #05050f;
+            --bg-night: #0a0a1a;
+            --neon-pink: #ff2d75;
+            --neon-purple: #a855f7;
+            --neon-blue: #38bdf8;
+            --neon-gold: #fbbf24;
+            --aurora-1: rgba(168, 85, 247, 0.25);
+            --aurora-2: rgba(255, 45, 117, 0.28);
+            --aurora-3: rgba(56, 189, 248, 0.2);
+            --glass-bg: rgba(20, 18, 38, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shine: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 60%, transparent 100%);
+            --font-title: 'Playfair Display', serif;
+            --font-script: 'Dancing Script', cursive;
+            --font-sans: 'Montserrat', sans-serif;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-in-out-back: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-deep);
+            font-family: var(--font-sans);
+            color: #f8fafc;
+            user-select: none;
+            touch-action: none;
+        }
+
+        /* Flash Screen chớp sáng máy ảnh */
+        #flash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #ffffff;
+            z-index: 99999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* ========================================================
+           2. 3D HYPERDRIVE CANVAS & AURORA
+           ======================================================== */
+        #cosmos-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        #lanterns-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+        #lanterns-canvas.active {
+            opacity: 1;
+        }
+
+        .aurora-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, #0d0b24 0%, #05050f 100%);
+        }
+
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.6;
+            animation: pulseOrb 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 { width: 70vw; height: 70vh; background: var(--aurora-1); top: -20%; left: -10%; }
+        .orb-2 { width: 65vw; height: 65vh; background: var(--aurora-2); bottom: -20%; right: -10%; animation-delay: -6s; }
+        .orb-3 { width: 50vw; height: 50vh; background: var(--aurora-3); top: 30%; left: 30%; animation-delay: -12s; }
+
+        @keyframes pulseOrb {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.25) translate(40px, 50px); }
+            100% { transform: scale(0.9) translate(-30px, -20px); }
+        }
+
+        /* ========================================================
+           3. FLOATING AMBIENT MUSIC & SOUND BAR
+           ======================================================== */
+        .ambient-audio-capsule {
+            position: fixed;
+            top: 22px;
+            right: 22px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 18px;
+            background: rgba(18, 16, 38, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .ambient-audio-capsule:hover {
+            transform: scale(1.05);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 45, 117, 0.4);
+        }
+
+        .vinyl-record {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff2d75 22%, #111 26%, #1e1b4b 70%, #ff2d75 100%);
+            border: 1.5px solid rgba(255,255,255,0.8);
+            position: relative;
+            animation: spinVinyl 3.5s linear infinite paused;
+            box-shadow: 0 0 12px rgba(255, 45, 117, 0.6);
+        }
+
+        .vinyl-record.playing {
+            animation-play-state: running;
+        }
+
+        .vinyl-record::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+
+        .audio-wave-bars {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 16px;
+        }
+
+        .audio-wave-bar {
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
+            border-radius: 2px;
+            transform: scaleY(0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .vinyl-record.playing ~ .audio-wave-bars .audio-wave-bar {
+            animation: bounceBar 1.2s infinite ease-in-out alternate;
+        }
+
+        .vinyl-record.playing ~ .audio-wave-bars .audio-wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .vinyl-record.playing ~ .audio-wave-bars .audio-wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .vinyl-record.playing ~ .audio-wave-bars .audio-wave-bar:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes bounceBar {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
+        }
+
+        .audio-title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #e2e8f0;
+            white-space: nowrap;
+        }
+
+        /* ========================================================
+           4. STEP NAVIGATION & TOP PROGRESS
+           ======================================================== */
+        .step-progress-wrapper {
+            position: fixed;
+            top: 22px;
+            left: 22px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+        .step-progress-wrapper.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .step-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--neon-pink);
+            background: rgba(255, 45, 117, 0.15);
+            border: 1px solid rgba(255, 45, 117, 0.35);
+            padding: 5px 12px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(255, 45, 117, 0.25);
+        }
+
+        .nav-constellation {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-node {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-node.active {
+            width: 32px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+            border-color: #fff;
+            box-shadow: 0 0 16px rgba(255, 45, 117, 0.8);
+        }
+
+        /* Floating Bottom Dock */
+        .control-dock {
+            position: fixed;
+            bottom: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 18px;
+            background: rgba(18, 16, 38, 0.7);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            transition: all 0.5s ease;
+        }
+
+        .control-dock.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 40px);
+        }
+
+        .dock-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dock-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--neon-pink);
+        }
+
+        .dock-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+
+        .dock-btn.action-primary {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            box-shadow: 0 4px 20px rgba(255, 45, 117, 0.45);
+        }
+
+        .dock-btn.action-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 45, 117, 0.7);
+            color: #fff;
+        }
+
+        /* ========================================================
+           5. 3D UNIVERSE VIEWPORT & STAGES
+           ======================================================== */
+        .stage-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+            perspective: 1200px;
+        }
+
+        .stage-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 24px 90px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateZ(-250px) scale(0.85);
+            transition: opacity 0.8s var(--ease-out-expo), transform 0.9s var(--ease-out-expo), visibility 0.8s;
+        }
+
+        .stage-view.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateZ(0) scale(1);
+        }
+
+        .stage-view.fly-out {
+            opacity: 0;
+            transform: translateZ(350px) scale(1.3);
+        }
+
+        .hologram-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 40px 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 0 25px rgba(255, 255, 255, 0.05);
+            max-width: 680px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .hologram-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transform: skewX(-25deg);
+            animation: holoGleam 7s infinite;
+        }
+
+        @keyframes holoGleam {
+            0% { left: -150%; }
+            30%, 100% { left: 200%; }
+        }
+
+        .title-handwritten {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: var(--neon-pink);
+            margin-bottom: 6px;
+            text-shadow: 0 0 20px rgba(255, 45, 117, 0.6);
+        }
+
+        .title-cinematic {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 40%, #fbcfe8 75%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        .desc-text {
+            font-size: 1.02rem;
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        /* ========================================================
+           STEP 0: CỔNG KHỞI NGUYÊN (PULSING 3D HEART)
+           ======================================================== */
+        .stage-intro {
+            max-width: 580px;
+        }
+
+        .heart-nebula-preview {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pulse-heart-icon {
+            font-size: 4.8rem;
+            filter: drop-shadow(0 0 35px var(--neon-pink));
+            animation: heartbeat 1.4s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            14% { transform: scale(1.18); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+
+        .btn-warp-jump {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 18px 42px;
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ff2d75 0%, #a855f7 50%, #38bdf8 100%);
+            background-size: 250% 250%;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 35px rgba(255, 45, 117, 0.5);
+            transition: all 0.4s ease;
+            animation: shimmerGradient 4s ease infinite;
+        }
+
+        @keyframes shimmerGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-warp-jump:hover {
+            transform: scale(1.06) translateY(-3px);
+            box-shadow: 0 18px 45px rgba(255, 45, 117, 0.8);
+        }
+
+        /* ========================================================
+           STEP 1: HOLOGRAPHIC LOVE CLOCK
+           ======================================================== */
+        .clock-ring-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .clock-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            width: 100%;
+        }
+
+        .clock-cube {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 18px 10px;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .clock-cube:hover {
+            transform: translateY(-4px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 45, 117, 0.4);
+        }
+
+        .clock-val {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 18px rgba(255, 45, 117, 0.8);
+            display: block;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .clock-lbl {
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .heartbeat-interactive {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 45, 117, 0.12);
+            border: 1px solid rgba(255, 45, 117, 0.3);
+            padding: 10px 22px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .heartbeat-interactive:hover {
+            background: rgba(255, 45, 117, 0.25);
+            transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(255, 45, 117, 0.4);
+        }
+
+        /* ========================================================
+           STEP 2: 3D CYLINDRICAL FILMSTRIP (CUỘN PHIM 3D)
+           ======================================================== */
+        .filmstrip-viewport {
+            width: 100%;
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+
+        .filmstrip-carousel {
+            position: relative;
+            width: 320px;
+            height: 300px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s var(--ease-out-expo);
+        }
+
+        .film-card-3d {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 300px;
+            background: rgba(26, 21, 58, 0.8);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 24px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            transition: opacity 0.5s ease, filter 0.5s ease;
+        }
+
+        .film-card-3d.dim {
+            opacity: 0.4;
+            filter: blur(2px);
+        }
+
+        .film-marker-num {
+            font-size: 0.72rem;
+            color: var(--neon-gold);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .film-title {
+            font-family: var(--font-title);
+            font-size: 1.35rem;
+            color: #fff;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .film-story {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .filmstrip-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 14px;
+        }
+
+        .btn-film-arrow {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-film-arrow:hover {
+            background: var(--neon-pink);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--neon-pink);
+        }
+
+        /* ========================================================
+           STEP 3: PHYSICS DRAGGABLE POLAROIDS (KÉO THẢ TƯƠNG TÁC)
+           ======================================================== */
+        .polaroid-sandbox {
+            position: relative;
+            width: 100%;
+            height: 410px;
+            margin-top: 10px;
+        }
+
+        .draggable-polaroid {
+            position: absolute;
+            width: 175px;
+            background: #ffffff;
+            padding: 9px 9px 22px;
+            border-radius: 6px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            cursor: grab;
+            transform-origin: center center;
+            transition: box-shadow 0.3s ease;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .draggable-polaroid:active {
+            cursor: grabbing;
+            box-shadow: 0 25px 60px rgba(255, 45, 117, 0.5);
+            z-index: 100 !important;
+        }
+
+        .polaroid-tape {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.65);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+        }
+
+        .polaroid-photo-box {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            border-radius: 2px;
+            background: #111;
+        }
+
+        .polaroid-photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .polaroid-text {
+            font-family: var(--font-script);
+            font-size: 1.25rem;
+            color: #1e1b4b;
+            text-align: center;
+            margin-top: 8px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .polaroid-sub {
+            font-size: 0.65rem;
+            color: #64748b;
+            text-align: center;
+            display: block;
+        }
+
+        /* Modal Phóng To Ảnh */
+        .photo-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 5, 15, 0.88);
+            backdrop-filter: blur(20px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .photo-lightbox.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-card {
+            background: #fff;
+            padding: 16px 16px 36px;
+            border-radius: 12px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.85);
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .photo-lightbox.open .lightbox-card {
+            transform: scale(1);
+        }
+
+        .lightbox-img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .lightbox-caption {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            color: #0f172a;
+            margin-top: 14px;
+        }
+
+        .lightbox-close {
+            margin-top: 16px;
+            padding: 8px 24px;
+            border-radius: 30px;
+            background: #0f172a;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        /* ========================================================
+           STEP 4: LỌ THỦY TINH & NGÔI SAO ƯỚC NGUYỆN (WISHING JAR)
+           ======================================================== */
+        .wishing-jar-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .jar-container {
+            width: 140px;
+            height: 190px;
+            position: relative;
+            margin: 10px auto 20px;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .jar-container:hover {
+            transform: scale(1.08);
+        }
+
+        .glass-jar {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px 20px 45px 45px;
+            background: radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.25) 0%, rgba(168, 85, 247, 0.2) 60%, rgba(255, 45, 117, 0.25) 100%);
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4), inset 0 0 25px rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jar-cork {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 18px;
+            background: #d97706;
+            border-radius: 6px 6px 2px 2px;
+            border: 1px solid #b45309;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .jar-stars-inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tiny-star {
+            position: absolute;
+            font-size: 1rem;
+            animation: floatStarInside 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatStarInside {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-15px) rotate(25deg); }
+        }
+
+        .star-modal-card {
+            background: linear-gradient(135deg, rgba(26, 21, 58, 0.95), rgba(46, 16, 61, 0.95));
+            border: 1.5px solid var(--neon-pink);
+            border-radius: 24px;
+            padding: 24px 28px;
+            box-shadow: 0 0 50px rgba(255, 45, 117, 0.5);
+            max-width: 480px;
+            margin-top: 10px;
+            animation: popIn 0.5s var(--ease-out-expo);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.6) rotate(-8deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .star-quote-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--neon-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .star-quote-content {
+            font-family: var(--font-script);
+            font-size: 1.65rem;
+            color: #fff;
+            line-height: 1.5;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+
+        /* ========================================================
+           STEP 5: 3D ENVELOPE WAX SEAL & SKY LANTERNS
+           ======================================================== */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            margin: 0 auto 20px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope-box {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #831843;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .wax-seal-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #f43f5e 40%, #9f1239 100%);
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.6);
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            z-index: 5;
+            animation: pulseSeal 2.5s infinite;
+        }
+
+        @keyframes pulseSeal {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(244, 63, 94, 0.9); }
+        }
+
+        .full-letter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 5, 15, 0.92);
+            backdrop-filter: blur(25px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .full-letter-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .parchment-letter {
+            background: rgba(18, 16, 38, 0.95);
+            border: 1.5px solid var(--neon-pink);
+            border-radius: 28px;
+            padding: 38px 32px;
+            max-width: 620px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: left;
+            box-shadow: 0 0 60px rgba(255, 45, 117, 0.4);
+            transform: translateY(40px) scale(0.9);
+            transition: all 0.6s var(--ease-out-expo);
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-pink) transparent;
+        }
+
+        .full-letter-modal.open .parchment-letter {
+            transform: translateY(0) scale(1);
+        }
+
+        .letter-scroll-text {
+            font-family: var(--font-script);
+            font-size: 1.7rem;
+            line-height: 1.7;
+            color: #fef08a;
+            text-shadow: 0 0 10px rgba(254, 240, 138, 0.3);
+        }
+
+        .letter-sign {
+            text-align: right;
+            margin-top: 18px;
+            font-family: var(--font-script);
+            font-size: 2rem;
+            color: var(--neon-pink);
+        }
+
+        .finale-button-cluster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .btn-finale-action {
+            padding: 14px 28px;
+            border-radius: 40px;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.35s ease;
+        }
+
+        .btn-lantern-fly {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            box-shadow: 0 6px 25px rgba(245, 158, 11, 0.5);
+        }
+
+        .btn-lantern-fly:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 35px rgba(245, 158, 11, 0.8);
+        }
+
+        .btn-heart-explosion {
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: #fff;
+            box-shadow: 0 6px 25px rgba(255, 45, 117, 0.5);
+        }
+
+        .btn-heart-explosion:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 35px rgba(255, 45, 117, 0.8);
+        }
+
+        /* Floating Flying Embers */
+        .sparkle-ember {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: riseAndFade 3s ease-out forwards;
+        }
+
+        @keyframes riseAndFade {
+            0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) scale(1.5) rotate(45deg); opacity: 0; }
+        }
+
+        /* ========================================================
+           6. RESPONSIVE DESIGN (MOBILE FIRST)
+           ======================================================== */
+        @media (max-width: 640px) {
+            .title-cinematic { font-size: 1.85rem; }
+            .title-handwritten { font-size: 2rem; }
+            .hologram-card { padding: 26px 18px; border-radius: 22px; }
+            .clock-matrix { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .clock-val { font-size: 2rem; }
+            .ambient-audio-capsule .audio-title { display: none; }
+            .filmstrip-viewport { height: 340px; }
+            .filmstrip-carousel { width: 280px; height: 280px; }
+            .film-card-3d { width: 280px; height: 280px; padding: 18px; }
+            .polaroid-sandbox { height: 430px; }
+            .draggable-polaroid { width: 145px; padding: 6px 6px 16px; }
+            .polaroid-photo-box { height: 125px; }
+            .polaroid-text { font-size: 1rem; }
+            .letter-scroll-text { font-size: 1.45rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Camera Flash Effect Screen -->
+    <div id="flash-screen"></div>
+
+    <!-- 1. Aurora Background & 3D Canvas -->
+    <div class="aurora-mesh">
+        <div class="aurora-orb orb-1"></div>
+        <div class="aurora-orb orb-2"></div>
+        <div class="aurora-orb orb-3"></div>
+    </div>
+    <canvas id="cosmos-canvas"></canvas>
+    <canvas id="lanterns-canvas"></canvas>
+
+    <!-- 2. Ambient Audio Controller -->
+    <div class="ambient-audio-capsule" id="music-toggle" title="Bật / Tắt bản nhạc tình ca">
+        <div class="vinyl-record" id="vinyl-disc"></div>
+        <span class="audio-title">River Flows In You (Piano)</span>
+        <div class="audio-wave-bars">
+            <div class="audio-wave-bar"></div>
+            <div class="audio-wave-bar"></div>
+            <div class="audio-wave-bar"></div>
+            <div class="audio-wave-bar"></div>
+        </div>
+    </div>
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_c89b4e339b.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 3. Dynamic Constellation Progress Header -->
+    <div class="step-progress-wrapper" id="progress-wrapper">
+        <span class="step-badge" id="step-badge-text">CHƯƠNG 1/5</span>
+        <div class="nav-constellation" id="nav-dots">
+            <div class="nav-node active" data-step="1"></div>
+            <div class="nav-node" data-step="2"></div>
+            <div class="nav-node" data-step="3"></div>
+            <div class="nav-node" data-step="4"></div>
+            <div class="nav-node" data-step="5"></div>
+        </div>
+    </div>
+
+    <!-- 4. Interactive Stages Viewport -->
+    <main class="stage-container">
+
+        <!-- ========================================================
+             STAGE 0: KHỞI NGUYÊN (PULSING 3D HEART NEBULA)
+             ======================================================== -->
+        <section class="stage-view active" id="stage-0">
+            <div class="hologram-card stage-intro">
+                <div class="heart-nebula-preview">
+                    <span class="pulse-heart-icon">💖</span>
+                </div>
+                <p class="title-handwritten">Gửi người anh yêu nhất</p>
+                <h1 class="title-cinematic">Du Hành Vào Vũ Trụ Ký Ức</h1>
+                <p class="desc-text">
+                    Chào em bé! Giữa 8 tỷ người trên hành tinh này, việc anh tìm thấy em là điều kỳ diệu nhất mà vũ trụ đã sắp đặt. 
+                    Hãy cùng anh bắt đầu chuyến du hành đặc biệt này nhé...
+                </p>
+                <button class="btn-warp-jump" id="btn-start-warp">
+                    <span>Bắt Đầu Du Hành ✨</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             STAGE 1: THE COSMIC LOVE CLOCK & HEARTBEAT
+             ======================================================== -->
+        <section class="stage-view" id="stage-1">
+            <div class="hologram-card">
+                <p class="title-handwritten">Định mệnh sắp đặt</p>
+                <h2 class="title-cinematic">Đồng Hồ Tình Yêu Vĩnh Cửu</h2>
+                <p class="desc-text" style="margin-bottom: 12px;">
+                    Từ những ngày đầu quen nhau hồi tháng 8/2024, cho đến khoảnh khắc ngày 16/09/2024 khi anh dũng cảm nói lời yêu em...
+                </p>
+
+                <!-- HOLOGRAPHIC CLOCK CUBES -->
+                <div class="clock-matrix">
+                    <div class="clock-cube">
+                        <span class="clock-val" id="clock-days">00</span>
+                        <span class="clock-lbl">Ngày</span>
+                    </div>
+                    <div class="clock-cube">
+                        <span class="clock-val" id="clock-hours">00</span>
+                        <span class="clock-lbl">Giờ</span>
+                    </div>
+                    <div class="clock-cube">
+                        <span class="clock-val" id="clock-minutes">00</span>
+                        <span class="clock-lbl">Phút</span>
+                    </div>
+                    <div class="clock-cube">
+                        <span class="clock-val" id="clock-seconds">00</span>
+                        <span class="clock-lbl">Giây</span>
+                    </div>
+                </div>
+
+                <!-- Heartbeat Counter Interaction -->
+                <div class="heartbeat-interactive" id="btn-heartbeat">
+                    <span style="font-size: 1.4rem; animation: heartbeat 1.2s infinite;">💓</span>
+                    <span style="font-size: 0.88rem; color: #fff; font-weight: 500;">
+                        Chạm để hòa chung nhịp đập: <strong id="heartbeat-count" style="color: var(--neon-pink);">...</strong> nhịp tim đã bên nhau
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             STAGE 2: 3D CYLINDRICAL FILMSTRIP (VÒNG QUAY ĐIỆN ẢNH)
+             ======================================================== -->
+        <section class="stage-view" id="stage-2">
+            <div class="hologram-card" style="max-width: 720px;">
+                <p class="title-handwritten">Từng bước chân đi qua</p>
+                <h2 class="title-cinematic">Thước Phim Không Gian 3D</h2>
+                <p class="desc-text" style="margin-bottom: 6px;">
+                    Dùng nút mũi tên hoặc vuốt để xoay vòng các cột mốc kỷ niệm trong không gian 3D.
+                </p>
+
+                <div class="filmstrip-viewport">
+                    <div class="filmstrip-carousel" id="filmstrip-carousel">
+                        <!-- Khung phim 1 -->
+                        <div class="film-card-3d" data-index="0">
+                            <span class="film-marker-num">CỘT MỐC 01 / ĐẦU THÁNG 8/2024</span>
+                            <h3 class="film-title">Ngày Đầu Tiên Quen Nhau</h3>
+                            <p class="film-story">
+                                Những cuộc trò chuyện đầu tiên ngập ngừng nhưng ngập tràn mong ngóng. Một sự kết nối kỳ diệu bắt đầu nảy mầm giữa hai tâm hồn lạ lẫm mà thân thuộc.
+                            </p>
+                        </div>
+                        <!-- Khung phim 2 -->
+                        <div class="film-card-3d dim" data-index="1">
+                            <span class="film-marker-num">CỘT MỐC 02 / 16 THÁNG 9, 2024</span>
+                            <h3 class="film-title">Ngày Anh Chính Thức Tỏ Tình</h3>
+                            <p class="film-story">
+                                Khoảnh khắc trái tim đập thình thịch khi anh lấy hết can đảm ngỏ lời. Và nụ cười cùng cái gật đầu của em đã biến ngày 16/09/2024 thành ngày đẹp nhất cuộc đời anh.
+                            </p>
+                        </div>
+                        <!-- Khung phim 3 -->
+                        <div class="film-card-3d dim" data-index="2">
+                            <span class="film-marker-num">CỘT MỐC 03 / NHỮNG THÁNG NGÀY BÊN NHAU</span>
+                            <h3 class="film-title">Từng Cái Nắm Tay & Kỷ Niệm</h3>
+                            <p class="film-story">
+                                Cùng em dạo phố, những cái ôm ấm áp giữa trời lạnh, cùng nhau chia sẻ mọi niềm vui nỗi buồn. Từng giây phút bên em đều trở thành ký ức vô giá.
+                            </p>
+                        </div>
+                        <!-- Khung phim 4 -->
+                        <div class="film-card-3d dim" data-index="3">
+                            <span class="film-marker-num">CỘT MỐC 04 / HÔM NAY & MÃI VỀ SAU</span>
+                            <h3 class="film-title">Mỗi Ngày Đều Là Ngày Yêu</h3>
+                            <p class="film-story">
+                                Cảm ơn em vì đã luôn kiên nhẫn, dịu dàng và là bến đỗ bình yên nhất sau mỗi ngày mỏi mệt của anh. Hành trình của chúng mình vẫn chỉ mới bắt đầu!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filmstrip-nav">
+                    <button class="btn-film-arrow" id="btn-film-prev">←</button>
+                    <span style="font-size: 0.85rem; color: var(--neon-pink); display: flex; align-items: center;" id="film-indicator">1 / 4</span>
+                    <button class="btn-film-arrow" id="btn-film-next">→</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             STAGE 3: DRAGGABLE POLAROID SCRAPBOOK (BÀN KỶ NIỆM KÉO THẢ)
+             ======================================================== -->
+        <section class="stage-view" id="stage-3">
+            <div class="hologram-card" style="max-width: 760px;">
+                <p class="title-handwritten">Khoảnh khắc ngưng đọng</p>
+                <h2 class="title-cinematic">Bàn Kỷ Niệm Tương Tác</h2>
+                <p class="desc-text" style="margin-bottom: 4px;">
+                    ✨ <em>Thử dùng chuột hoặc ngón tay kéo thả các bức ảnh xung quanh. Nhấp đúp vào ảnh để phóng to!</em>
+                </p>
+
+                <div class="polaroid-sandbox" id="polaroid-sandbox">
+                    <!-- Ảnh 1 -->
+                    <div class="draggable-polaroid" id="pol-1" style="top: 15px; left: 3%; transform: rotate(-5deg);">
+                        <div class="polaroid-tape"></div>
+                        <div class="polaroid-photo-box">
+                            <img src="Image_0C1D2C22-58E4-4C4A-98CC-48C8108FAA3B.jpeg" alt="Khoảnh khắc bên em">
+                        </div>
+                        <span class="polaroid-text">Khoảnh khắc bên em ✨</span>
+                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                    </div>
+
+                    <!-- Ảnh 2 -->
+                    <div class="draggable-polaroid" id="pol-2" style="top: 45px; left: 27%; transform: rotate(4deg);">
+                        <div class="polaroid-tape"></div>
+                        <div class="polaroid-photo-box">
+                            <img src="Image_667A731C-12E6-4F5B-AEDD-F8988A429FA8.jpeg" alt="Nụ cười tỏa nắng">
+                        </div>
+                        <span class="polaroid-text">Nụ cười tỏa nắng 💕</span>
+                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                    </div>
+
+                    <!-- Ảnh 3 -->
+                    <div class="draggable-polaroid" id="pol-3" style="top: 15px; left: 51%; transform: rotate(-4deg);">
+                        <div class="polaroid-tape"></div>
+                        <div class="polaroid-photo-box">
+                            <img src="Image_A4A057F0-3EB2-4E84-93EB-395993D73EF6.jpeg" alt="Cùng em đi muôn nơi">
+                        </div>
+                        <span class="polaroid-text">Cùng em đi muôn nơi 🌷</span>
+                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                    </div>
+
+                    <!-- Ảnh 4 -->
+                    <div class="draggable-polaroid" id="pol-4" style="top: 55px; left: 74%; transform: rotate(5deg);">
+                        <div class="polaroid-tape"></div>
+                        <div class="polaroid-photo-box">
+                            <img src="Image_E28F7FCC-A41D-47CF-8CFA-22CF83BA8EEF.jpeg" alt="Em bé đáng yêu nhất">
+                        </div>
+                        <span class="polaroid-text">Em bé đáng yêu nhất 🌸</span>
+                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             STAGE 4: LỌ THỦY TINH & NGÔI SAO ƯỚC NGUYỆN (WISHING JAR)
+             ======================================================== -->
+        <section class="stage-view" id="stage-4">
+            <div class="hologram-card" style="max-width: 650px;">
+                <p class="title-handwritten">Tâm sự bí mật</p>
+                <h2 class="title-cinematic">Lọ Thủy Tinh Ngàn Điều Ước</h2>
+                <p class="desc-text" style="margin-bottom: 6px;">
+                    Bên trong chiếc lọ này chứa vô vàn ngôi sao may mắn. Mỗi lần chạm là một điều kỳ diệu anh muốn nói với em...
+                </p>
+
+                <div class="wishing-jar-stage">
+                    <div class="jar-container" id="wishing-jar-btn" title="Chạm để rút một ngôi sao">
+                        <div class="jar-cork"></div>
+                        <div class="glass-jar">
+                            <div class="jar-stars-inside">
+                                <span class="tiny-star" style="top: 30%; left: 20%;">⭐</span>
+                                <span class="tiny-star" style="top: 60%; left: 60%; animation-delay: 0.5s;">✨</span>
+                                <span class="tiny-star" style="top: 45%; left: 45%; animation-delay: 1.2s;">💫</span>
+                                <span class="tiny-star" style="top: 70%; left: 25%; animation-delay: 1.8s;">🌟</span>
+                                <span class="tiny-star" style="top: 20%; left: 65%; animation-delay: 2.3s;">⭐</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-warp-jump" id="btn-draw-star" style="padding: 12px 28px; font-size: 0.95rem;">
+                        <span>Mở Một Ngôi Sao Bí Mật ⭐</span>
+                    </button>
+
+                    <!-- Thẻ hiển thị điều ước xuất hiện khi bấm -->
+                    <div class="star-modal-card" id="star-card-reveal">
+                        <div class="star-quote-num" id="star-index-text">ĐIỀU ƯỚC #01</div>
+                        <p class="star-quote-content" id="star-quote-text">
+                            "Nụ cười của em là liều thuốc ngọt ngào nhất, chỉ cần nhìn thấy em vui là mọi mệt mỏi trong anh đều tan biến."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             STAGE 5: BỨC THƯ TÌNH CỔ ĐIỂN & LỄ HỘI ĐÈN TRỜI
+             ======================================================== -->
+        <section class="stage-view" id="stage-5">
+            <div class="hologram-card" style="max-width: 660px;">
+                <p class="title-handwritten">Mãi mãi về sau</p>
+                <h2 class="title-cinematic">Bức Thư Gửi Tương Lai</h2>
+                <p class="desc-text" style="margin-bottom: 16px;">
+                    Chạm vào phong bì niêm phong sáp đỏ để mở bức thư tình anh đã viết riêng cho em...
+                </p>
+
+                <!-- Phong Bì Thư Cổ Điển -->
+                <div class="envelope-wrapper" id="envelope-trigger">
+                    <div class="envelope-box">
+                        <div class="wax-seal-badge">💌</div>
+                    </div>
+                </div>
+
+                <div class="finale-button-cluster">
+                    <button class="btn-finale-action btn-lantern-fly" id="btn-fly-lanterns">
+                        <span>Thả Đèn Trời Cầu Nguyện 🏮</span>
+                    </button>
+                    <button class="btn-finale-action btn-heart-explosion" id="btn-heart-storm">
+                        <span>Bão Tim Vũ Trụ 💖</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 5. FLOATING DOCK (PREV / NEXT) -->
+    <nav class="control-dock hidden" id="control-dock">
+        <button class="dock-btn" id="dock-prev" disabled>
+            <span>← Quay lại</span>
+        </button>
+        <span style="color: rgba(255,255,255,0.2);">|</span>
+        <button class="dock-btn action-primary" id="dock-next">
+            <span>Tiếp tục ✨</span>
+        </button>
+    </nav>
+
+    <!-- 6. FULLSCREEN MODALS -->
+    <!-- Modal Ảnh To -->
+    <div class="photo-lightbox" id="lightbox-modal">
+        <div class="lightbox-card">
+            <img class="lightbox-img" id="lightbox-img-tag" src="" alt="Ảnh">
+            <div class="lightbox-caption" id="lightbox-caption-tag">Kỷ niệm ngọt ngào</div>
+            <button class="lightbox-close" id="lightbox-close-btn">Đóng lại</button>
+        </div>
+    </div>
+
+    <!-- Modal Bức Thư Tình Toàn Màn Hình -->
+    <div class="full-letter-modal" id="letter-modal">
+        <div class="parchment-letter">
+            <div style="font-family: var(--font-title); font-size: 1.6rem; color: #fff; margin-bottom: 12px; font-weight: 700;">
+                Gửi Người Con Gái Anh Yêu Nhất,
+            </div>
+            <div class="letter-scroll-text">
+                "Em yêu dấu của anh,<br><br>
+                Nhớ lại những ngày đầu tháng 8/2024 khi hai đứa mới quen nhau, từng tin nhắn trao nhau đều mang đến cho anh những cảm xúc thật bồi hồi và ấm áp.<br><br>
+                Rồi đến ngày 16/09/2024 định mệnh, khoảnh khắc anh lấy hết dũng khí tỏ tình và được em gật đầu đồng ý... Đó là giây phút đẹp nhất cuộc đời anh.<br><br>
+                Cảm ơn em vì đã đến bên anh, bao dung những lúc anh chưa hoàn hảo, dịu dàng sưởi ấm những ngày anh mệt mỏi. Anh không hứa một hành trình chỉ toàn màu hồng, nhưng anh hứa sẽ luôn nắm chặt tay em, cùng em đi qua mọi bão giông.<br><br>
+                Mỗi sớm mai thức dậy, anh vẫn sẽ luôn chọn yêu em. Yêu em thật nhiều!"
+            </div>
+            <div class="letter-sign">
+                ~ Mãi yêu em, Anh của em ❤️
+            </div>
+            <div style="text-align: center; margin-top: 24px;">
+                <button class="dock-btn action-primary" id="btn-close-letter" style="margin: 0 auto;">
+                    <span>Khép lại bức thư & Thả đèn trời ✨</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         7. HIGH-PERFORMANCE 3D COSMOS & GAME LOGIC SCRIPT
+         ======================================================== -->
+    <script>
+        /* ========================================================
+           CẤU HÌNH DÀNH RIÊNG CHO BẠN:
+           ======================================================== */
+        // Ngày chính thức tỏ tình: 16/09/2024
+        const LOVE_DATE = new Date("2024-09-16T00:00:00");
+
+        /* ========================================================
+           WEB AUDIO API SOUND SYNTHESIZER (ZERO DELAY, NO LAG)
+           ======================================================== */
+        class SoundFX {
+            constructor() {
+                this.ctx = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    this.ctx = new AudioContext();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playWarp() {
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(120, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(700, this.ctx.currentTime + 0.6);
+                gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.6);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.6);
+            }
+
+            playChime() {
+                this.init();
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
+                notes.forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.08);
+                    gain.gain.setValueAtTime(0.1, this.ctx.currentTime + idx * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.08 + 0.8);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(this.ctx.currentTime + idx * 0.08);
+                    osc.stop(this.ctx.currentTime + idx * 0.08 + 0.8);
+                });
+            }
+
+            playShutter() {
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.08);
+            }
+
+            playWaxPop() {
+                this.init();
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(350, this.ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(900, this.ctx.currentTime + 0.12);
+                gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.2);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start();
+                osc.stop(this.ctx.currentTime + 0.2);
+            }
+        }
+        const sfx = new SoundFX();
+
+        /* ========================================================
+           CANVAS 1: REAL 3D COSMOS & HYPERDRIVE WARP SYSTEM
+           ======================================================== */
+        const canvas = document.getElementById('cosmos-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+        const NUM_STARS = 1200;
+        let warpSpeed = 1;
+        let targetWarpSpeed = 1;
+        let heartMorphProgress = 1; // 1 = heart, 0 = free space
+        let mouseX = 0, mouseY = 0;
+        let targetRotX = 0, targetRotY = 0;
+        let rotX = 0, rotY = 0;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Star3D {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = (Math.random() - 0.5) * 2000;
+                this.y = (Math.random() - 0.5) * 2000;
+                this.z = Math.random() * 1800 + 200;
+                this.prevZ = this.z;
+
+                // 3D Heart coordinates calculation
+                const t = Math.random() * Math.PI * 2;
+                const heartX = 16 * Math.pow(Math.sin(t), 3);
+                const heartY = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                const spread = (Math.random() - 0.5) * 50;
+                this.hx = heartX * 18 + spread;
+                this.hy = heartY * 18 + spread;
+                this.hz = (Math.random() - 0.5) * 350;
+
+                this.hue = Math.random() > 0.4 ? 330 : 270; // pink & purple
+                this.brightness = Math.random() * 50 + 50;
+            }
+
+            update(speed) {
+                this.prevZ = this.z;
+                this.z -= speed * 12;
+
+                if (this.z <= 10) {
+                    this.reset();
+                    this.z = 1800;
+                    this.prevZ = this.z;
+                }
+            }
+
+            draw() {
+                // Interpolate between free cosmos and 3D Heart in Stage 0
+                const curX = this.x * (1 - heartMorphProgress) + this.hx * heartMorphProgress;
+                const curY = this.y * (1 - heartMorphProgress) + this.hy * heartMorphProgress;
+                const curZ = this.z;
+
+                // 3D Rotation
+                const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+                const rx = curX * cosY - curZ * sinY;
+                const rz = curX * sinY + curZ * cosY;
+
+                const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+                const ry = curY * cosX - rz * sinX;
+                const finalZ = curY * sinX + rz * cosX;
+
+                if (finalZ <= 50) return;
+
+                const fov = 450;
+                const scale = fov / finalZ;
+                const sx = rx * scale + width / 2;
+                const sy = ry * scale + height / 2;
+
+                // Warp streak
+                const prevScale = fov / Math.max(50, finalZ + warpSpeed * 8);
+                const px = rx * prevScale + width / 2;
+                const py = ry * prevScale + height / 2;
+
+                if (sx < 0 || sx > width || sy < 0 || sy > height) return;
+
+                const radius = Math.max(0.6, scale * 1.8);
+
+                if (warpSpeed > 2.5) {
+                    ctx.strokeStyle = `hsla(${this.hue}, 90%, ${this.brightness}%, ${Math.min(1, scale * 2)})`;
+                    ctx.lineWidth = radius * 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(px, py);
+                    ctx.lineTo(sx, sy);
+                    ctx.stroke();
+                } else {
+                    ctx.fillStyle = `hsla(${this.hue}, 90%, ${this.brightness}%, ${Math.min(1, scale * 1.6)})`;
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+
+        for (let i = 0; i < NUM_STARS; i++) {
+            stars.push(new Star3D());
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - width / 2) / (width / 2);
+            mouseY = (e.clientY - height / 2) / (height / 2);
+            targetRotY = mouseX * 0.35;
+            targetRotX = -mouseY * 0.25;
+        });
+
+        // Touch parallax on mobile
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouseX = (e.touches[0].clientX - width / 2) / (width / 2);
+                mouseY = (e.touches[0].clientY - height / 2) / (height / 2);
+                targetRotY = mouseX * 0.4;
+                targetRotX = -mouseY * 0.3;
+            }
+        }, { passive: true });
+
+        function animateCosmos() {
+            ctx.fillStyle = 'rgba(5, 5, 15, 0.35)';
+            ctx.fillRect(0, 0, width, height);
+
+            warpSpeed += (targetWarpSpeed - warpSpeed) * 0.08;
+            rotX += (targetRotX - rotX) * 0.05;
+            rotY += (targetRotY - rotY) * 0.05;
+
+            // In stage 0, orbit the heart slowly
+            if (heartMorphProgress > 0.05) {
+                rotY += 0.003;
+            }
+
+            stars.forEach(star => {
+                star.update(warpSpeed);
+                star.draw();
+            });
+
+            requestAnimationFrame(animateCosmos);
+        }
+        animateCosmos();
+
+        /* ========================================================
+           CANVAS 2: THẢ ĐÈN TRỜI ƯỚC NGUYỆN (SKY LANTERNS FESTIVAL)
+           ======================================================== */
+        const lanternCanvas = document.getElementById('lanterns-canvas');
+        const lctx = lanternCanvas.getContext('2d');
+        let lanterns = [];
+        let isLanternActive = false;
+
+        function resizeLanterns() {
+            lanternCanvas.width = window.innerWidth;
+            lanternCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeLanterns);
+        resizeLanterns();
+
+        class SkyLantern {
+            constructor() {
+                this.x = Math.random() * lanternCanvas.width;
+                this.y = lanternCanvas.height + Math.random() * 200;
+                this.size = Math.random() * 22 + 18;
+                this.speed = Math.random() * 1.5 + 1.2;
+                this.drift = (Math.random() - 0.5) * 0.8;
+                this.alpha = Math.random() * 0.3 + 0.7;
+                this.sway = Math.random() * Math.PI * 2;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.sway += 0.03;
+                this.x += Math.sin(this.sway) * 0.6 + this.drift;
+            }
+
+            draw() {
+                lctx.save();
+                lctx.globalAlpha = this.alpha;
+                lctx.translate(this.x, this.y);
+
+                // Golden glow aura
+                const gradGlow = lctx.createRadialGradient(0, 0, 2, 0, 0, this.size * 2);
+                gradGlow.addColorStop(0, 'rgba(251, 191, 36, 0.8)');
+                gradGlow.addColorStop(0.5, 'rgba(245, 158, 11, 0.3)');
+                gradGlow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                lctx.fillStyle = gradGlow;
+                lctx.beginPath();
+                lctx.arc(0, 0, this.size * 2, 0, Math.PI * 2);
+                lctx.fill();
+
+                // Lantern body
+                lctx.fillStyle = '#f59e0b';
+                lctx.beginPath();
+                lctx.moveTo(-this.size * 0.4, -this.size * 0.6);
+                lctx.lineTo(this.size * 0.4, -this.size * 0.6);
+                lctx.lineTo(this.size * 0.5, this.size * 0.5);
+                lctx.lineTo(-this.size * 0.5, this.size * 0.5);
+                lctx.closePath();
+                lctx.fill();
+
+                // Bright core flame
+                lctx.fillStyle = '#fffbeb';
+                lctx.beginPath();
+                lctx.arc(0, this.size * 0.2, this.size * 0.2, 0, Math.PI * 2);
+                lctx.fill();
+
+                lctx.restore();
+            }
+        }
+
+        function releaseSkyLanterns() {
+            lanternCanvas.classList.add('active');
+            isLanternActive = true;
+            for (let i = 0; i < 45; i++) {
+                lanterns.push(new SkyLantern());
+            }
+            animateLanterns();
+        }
+
+        function animateLanterns() {
+            if (!isLanternActive) return;
+            lctx.clearRect(0, 0, lanternCanvas.width, lanternCanvas.height);
+
+            for (let i = lanterns.length - 1; i >= 0; i--) {
+                lanterns[i].update();
+                lanterns[i].draw();
+                if (lanterns[i].y < -60) {
+                    lanterns[i].y = lanternCanvas.height + 40;
+                    lanterns[i].x = Math.random() * lanternCanvas.width;
+                }
+            }
+
+            requestAnimationFrame(animateLanterns);
+        }
+
+        /* ========================================================
+           STATE MANAGEMENT & HYPERDRIVE WARP NAVIGATION
+           ======================================================== */
+        let currentStage = 0;
+        const totalStages = 5;
+
+        const stages = [
+            document.getElementById('stage-0'),
+            document.getElementById('stage-1'),
+            document.getElementById('stage-2'),
+            document.getElementById('stage-3'),
+            document.getElementById('stage-4'),
+            document.getElementById('stage-5')
+        ];
+
+        const progressWrapper = document.getElementById('progress-wrapper');
+        const stepBadgeText = document.getElementById('step-badge-text');
+        const navNodes = document.querySelectorAll('.nav-node');
+        const controlDock = document.getElementById('control-dock');
+        const dockPrev = document.getElementById('dock-prev');
+        const dockNext = document.getElementById('dock-next');
+
+        function warpToStage(target) {
+            if (target < 0 || target > totalStages || target === currentStage) return;
+
+            // Trigger Hyperdrive Warp effect!
+            targetWarpSpeed = 16;
+            sfx.playWarp();
+
+            stages[currentStage].classList.remove('active');
+            stages[currentStage].classList.add('fly-out');
+
+            setTimeout(() => {
+                stages[currentStage].classList.remove('fly-out');
+                currentStage = target;
+
+                // Adjust 3D heart morph in space
+                heartMorphProgress = (currentStage === 0) ? 1 : 0;
+
+                stages[currentStage].classList.add('active');
+                targetWarpSpeed = 1;
+                updateStageUI();
+            }, 650);
+        }
+
+        function updateStageUI() {
+            if (currentStage === 0) {
+                progressWrapper.classList.remove('visible');
+                controlDock.classList.add('hidden');
+            } else {
+                progressWrapper.classList.add('visible');
+                controlDock.classList.remove('hidden');
+
+                stepBadgeText.innerText = `CHƯƠNG ${currentStage}/${totalStages}`;
+                navNodes.forEach((node, idx) => {
+                    node.classList.toggle('active', (idx + 1) === currentStage);
+                });
+
+                dockPrev.disabled = (currentStage === 1);
+                if (currentStage === totalStages) {
+                    dockNext.innerHTML = '<span>Trở về Khởi nguyên 🚀</span>';
+                } else {
+                    dockNext.innerHTML = '<span>Tiếp tục ✨</span>';
+                }
+            }
+        }
+
+        // Bắt đầu chuyến du hành từ Stage 0
+        document.getElementById('btn-start-warp').addEventListener('click', () => {
+            playMusicSafely();
+            sfx.playChime();
+            warpToStage(1);
+        });
+
+        dockPrev.addEventListener('click', () => {
+            if (currentStage > 1) warpToStage(currentStage - 1);
+        });
+
+        dockNext.addEventListener('click', () => {
+            if (currentStage < totalStages) {
+                warpToStage(currentStage + 1);
+            } else {
+                warpToStage(0);
+            }
+        });
+
+        navNodes.forEach(node => {
+            node.addEventListener('click', () => {
+                const target = parseInt(node.getAttribute('data-step'));
+                warpToStage(target);
+            });
+        });
+
+        // Bàn phím điều hướng
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                if (currentStage < totalStages) warpToStage(currentStage + 1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                if (currentStage > 1) warpToStage(currentStage - 1);
+            }
+        });
+
+        /* ========================================================
+           STAGE 1: LOVE CLOCK & HEARTBEAT INTERACTION
+           ======================================================== */
+        function updateLoveClock() {
+            const now = new Date();
+            const diff = now - LOVE_DATE;
+
+            if (diff > 0) {
+                const totalSec = Math.floor(diff / 1000);
+                const days = Math.floor(totalSec / 86400);
+                const hours = Math.floor((totalSec % 86400) / 3600);
+                const minutes = Math.floor((totalSec % 3600) / 60);
+                const seconds = totalSec % 60;
+
+                document.getElementById('clock-days').innerText = String(days).padStart(2, '0');
+                document.getElementById('clock-hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('clock-minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('clock-seconds').innerText = String(seconds).padStart(2, '0');
+
+                // Ước tính số nhịp tim (~72 nhịp/phút)
+                const totalMinutes = Math.floor(totalSec / 60);
+                const heartbeats = (totalMinutes * 72).toLocaleString('vi-VN');
+                document.getElementById('heartbeat-count').innerText = heartbeats;
+            }
+        }
+        setInterval(updateLoveClock, 1000);
+        updateLoveClock();
+
+        document.getElementById('btn-heartbeat').addEventListener('click', (e) => {
+            sfx.playChime();
+            const rect = e.currentTarget.getBoundingClientRect();
+            spawnEmberShower(rect.left + rect.width / 2, rect.top, 15);
+        });
+
+        /* ========================================================
+           STAGE 2: 3D CYLINDRICAL FILMSTRIP LOGIC
+           ======================================================== */
+        let filmIndex = 0;
+        const totalFilms = 4;
+        const carousel = document.getElementById('filmstrip-carousel');
+        const filmCards = document.querySelectorAll('.film-card-3d');
+        const filmIndicator = document.getElementById('film-indicator');
+
+        function updateFilmstrip() {
+            const angle = filmIndex * -90; // 4 thẻ cách nhau 90 độ
+            carousel.style.transform = `rotateY(${angle}deg)`;
+
+            filmCards.forEach((card, idx) => {
+                const rot = idx * 90;
+                card.style.transform = `rotateY(${rot}deg) translateZ(260px)`;
+                card.classList.toggle('dim', idx !== filmIndex);
+            });
+
+            filmIndicator.innerText = `${filmIndex + 1} / ${totalFilms}`;
+            sfx.playChime();
+        }
+        updateFilmstrip();
+
+        document.getElementById('btn-film-prev').addEventListener('click', () => {
+            filmIndex = (filmIndex - 1 + totalFilms) % totalFilms;
+            updateFilmstrip();
+        });
+
+        document.getElementById('btn-film-next').addEventListener('click', () => {
+            filmIndex = (filmIndex + 1) % totalFilms;
+            updateFilmstrip();
+        });
+
+        /* ========================================================
+           STAGE 3: DRAGGABLE POLAROIDS & CAMERA FLASH
+           ======================================================== */
+        const polaroidEls = document.querySelectorAll('.draggable-polaroid');
+        const flashScreen = document.getElementById('flash-screen');
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const lightboxImg = document.getElementById('lightbox-img-tag');
+        const lightboxCaption = document.getElementById('lightbox-caption-tag');
+
+        // Sắp xếp layout tự động trên mobile
+        if (window.innerWidth <= 640) {
+            const p1 = document.getElementById('pol-1');
+            const p2 = document.getElementById('pol-2');
+            const p3 = document.getElementById('pol-3');
+            const p4 = document.getElementById('pol-4');
+            if (p1 && p2 && p3 && p4) {
+                p1.style.left = '5%'; p1.style.top = '10px';
+                p2.style.left = '48%'; p2.style.top = '25px';
+                p3.style.left = '8%'; p3.style.top = '195px';
+                p4.style.left = '50%'; p4.style.top = '210px';
+            }
+        }
+
+        polaroidEls.forEach(el => {
+            let isDragging = false;
+            let startX, startY, initialLeft, initialTop;
+            let dragMoved = false;
+
+            const onStart = (clientX, clientY) => {
+                isDragging = true;
+                dragMoved = false;
+                startX = clientX;
+                startY = clientY;
+                initialLeft = el.offsetLeft;
+                initialTop = el.offsetTop;
+                el.style.zIndex = '50';
+            };
+
+            const onMove = (clientX, clientY) => {
+                if (!isDragging) return;
+                const dx = clientX - startX;
+                const dy = clientY - startY;
+                if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+                    dragMoved = true;
+                }
+                el.style.left = `${initialLeft + dx}px`;
+                el.style.top = `${initialTop + dy}px`;
+            };
+
+            const onEnd = () => {
+                isDragging = false;
+            };
+
+            // Mouse events
+            el.addEventListener('mousedown', (e) => onStart(e.clientX, e.clientY));
+            window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+            window.addEventListener('mouseup', onEnd);
+
+            // Touch events for mobile
+            el.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) onStart(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1) onMove(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            window.addEventListener('touchend', onEnd);
+
+            // Nhấp vào chữ "Nhấp để xem to" hoặc double click để mở to
+            const subBtn = el.querySelector('.polaroid-sub');
+            if (subBtn) {
+                subBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openPhotoZoom(el);
+                });
+            }
+            el.addEventListener('dblclick', () => openPhotoZoom(el));
+        });
+
+        function openPhotoZoom(el) {
+            // Camera Flash
+            sfx.playShutter();
+            flashScreen.style.opacity = '1';
+            setTimeout(() => { flashScreen.style.opacity = '0'; }, 180);
+
+            const img = el.querySelector('img').src;
+            const caption = el.querySelector('.polaroid-text').innerText;
+
+            lightboxImg.src = img;
+            lightboxCaption.innerText = caption;
+            lightboxModal.classList.add('open');
+        }
+
+        document.getElementById('lightbox-close-btn').addEventListener('click', () => {
+            lightboxModal.classList.remove('open');
+        });
+
+        /* ========================================================
+           STAGE 4: MAGIC WISHING JAR (RÚT NGÔI SAO ĐIỀU ƯỚC)
+           ======================================================== */
+        const secretQuotes = [
+            "Nụ cười của em là liều thuốc ngọt ngào nhất, chỉ cần nhìn thấy em vui là mọi mệt mỏi trong anh đều tan biến.",
+            "Anh yêu cách em hay phụng phịu làm nũng mỗi khi muốn anh dỗ dành. Lúc đó chỉ muốn ôm chặt em vào lòng thôi!",
+            "Cảm ơn em vì luôn lắng nghe, thấu hiểu và là chỗ dựa bình yên nhất sau mỗi ngày dài mỏi mệt của anh.",
+            "Dù là lúc em trang điểm lộng lẫy hay lúc mặc áo phông đơn giản ở nhà, trong mắt anh em luôn là cô gái đẹp nhất.",
+            "Từng cái nắm tay của em đều sưởi ấm bàn tay anh giữa mùa đông. Anh hứa sẽ không bao giờ buông ra đâu!",
+            "Đơn giản là vì em là chính em. Anh yêu tất cả những điều thuộc về em, hôm nay và mãi mãi về sau."
+        ];
+        let starQuoteIndex = 0;
+
+        function drawMagicStar() {
+            sfx.playChime();
+            starQuoteIndex = (starQuoteIndex + 1) % secretQuotes.length;
+            const card = document.getElementById('star-card-reveal');
+            const numText = document.getElementById('star-index-text');
+            const quoteText = document.getElementById('star-quote-text');
+
+            // Reset animation
+            card.style.animation = 'none';
+            void card.offsetWidth; // trigger reflow
+            card.style.animation = 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+
+            numText.innerText = `ĐIỀU ƯỚC #${String(starQuoteIndex + 1).padStart(2, '0')}`;
+            quoteText.innerText = `"${secretQuotes[starQuoteIndex]}"`;
+
+            const rect = document.getElementById('wishing-jar-btn').getBoundingClientRect();
+            spawnEmberShower(rect.left + rect.width / 2, rect.top, 20);
+        }
+
+        document.getElementById('wishing-jar-btn').addEventListener('click', drawMagicStar);
+        document.getElementById('btn-draw-star').addEventListener('click', drawMagicStar);
+
+        /* ========================================================
+           STAGE 5: 3D ENVELOPE WAX SEAL & FINALE
+           ======================================================== */
+        const envelopeTrigger = document.getElementById('envelope-trigger');
+        const letterModal = document.getElementById('letter-modal');
+        const btnCloseLetter = document.getElementById('btn-close-letter');
+
+        envelopeTrigger.addEventListener('click', () => {
+            sfx.playWaxPop();
+            sfx.playChime();
+            letterModal.classList.add('open');
+            releaseSkyLanterns();
+        });
+
+        btnCloseLetter.addEventListener('click', () => {
+            letterModal.classList.remove('open');
+        });
+
+        document.getElementById('btn-fly-lanterns').addEventListener('click', () => {
+            releaseSkyLanterns();
+            sfx.playChime();
+        });
+
+        document.getElementById('btn-heart-storm').addEventListener('click', () => {
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    spawnEmberShower(Math.random() * window.innerWidth, window.innerHeight - 30, 1);
+                }, i * 50);
+            }
+            sfx.playChime();
+        });
+
+        /* ========================================================
+           FLOATING EMBER & HEART GENERATOR
+           ======================================================== */
+        function spawnEmberShower(x, y, count = 10) {
+            const icons = ['💖', '✨', '🏮', '🌸', '💕', '⭐'];
+            for (let i = 0; i < count; i++) {
+                const em = document.createElement('div');
+                em.className = 'sparkle-ember';
+                em.innerText = icons[Math.floor(Math.random() * icons.length)];
+                em.style.left = `${x + (Math.random() * 80 - 40)}px`;
+                em.style.top = `${y + (Math.random() * 60 - 30)}px`;
+                em.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
+                em.style.animationDuration = `${Math.random() * 1.6 + 2.2}s`;
+                document.body.appendChild(em);
+
+                setTimeout(() => em.remove(), 3500);
+            }
+        }
+
+        /* ========================================================
+           AMBIENT AUDIO CONTROLLER
+           ======================================================== */
+        const bgMusic = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const vinylDisc = document.getElementById('vinyl-disc');
+        let isMusicPlaying = false;
+
+        function playMusicSafely() {
+            if (!isMusicPlaying) {
+                bgMusic.volume = 0.65;
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    vinylDisc.classList.add('playing');
+                }).catch(() => {});
+            }
+        }
+
+        musicToggle.addEventListener('click', () => {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                isMusicPlaying = false;
+                vinylDisc.classList.remove('playing');
+            } else {
+                bgMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    vinylDisc.classList.add('playing');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
