@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chuyến Du Hành Tình Yêu - Gửi Người Anh Yêu Nhất ✨</title>
+    <title>Cho Em Bé Nè ✨</title>
     
     <!-- Google Fonts tuyển chọn cho phong cách lãng mạn sang trọng -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,7 +49,6 @@
             font-family: var(--font-sans);
             color: #f8fafc;
             user-select: none;
-            touch-action: none;
         }
 
         /* Flash Screen chớp sáng máy ảnh */
@@ -357,11 +356,18 @@
             justify-content: center;
             align-items: center;
             padding: 80px 24px 90px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
             transform: translateZ(-250px) scale(0.85);
             transition: opacity 0.8s var(--ease-out-expo), transform 0.9s var(--ease-out-expo), visibility 0.8s;
+        }
+
+        .stage-view::-webkit-scrollbar {
+            display: none;
         }
 
         .stage-view.active {
@@ -390,6 +396,8 @@
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
+            margin: auto 0;
+            flex-shrink: 0;
         }
 
         .hologram-card::after {
@@ -1064,20 +1072,72 @@
            6. RESPONSIVE DESIGN (MOBILE FIRST)
            ======================================================== */
         @media (max-width: 640px) {
-            .title-cinematic { font-size: 1.85rem; }
-            .title-handwritten { font-size: 2rem; }
-            .hologram-card { padding: 26px 18px; border-radius: 22px; }
-            .clock-matrix { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .clock-val { font-size: 2rem; }
+            .stage-view {
+                padding: 55px 12px 80px;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .hologram-card {
+                padding: 20px 14px;
+                border-radius: 20px;
+                margin: auto 0;
+                flex-shrink: 0;
+            }
+            .title-cinematic { font-size: 1.6rem; margin-bottom: 8px; line-height: 1.25; }
+            .title-handwritten { font-size: 1.7rem; margin-bottom: 4px; }
+            .desc-text { font-size: 0.88rem; margin-bottom: 14px; line-height: 1.5; }
+            
+            /* Stage 0 */
+            .heart-nebula-preview { width: 80px; height: 80px; margin-bottom: 10px; }
+            .pulse-heart-icon { font-size: 3.2rem; }
+            .btn-warp-jump { padding: 13px 28px; font-size: 0.95rem; }
+
+            /* Stage 1 */
+            .clock-matrix { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .clock-cube { padding: 10px 4px; border-radius: 14px; }
+            .clock-val { font-size: 1.75rem; margin-bottom: 4px; }
+            .clock-lbl { font-size: 0.65rem; }
+            .heartbeat-interactive { padding: 8px 12px; font-size: 0.78rem; margin-top: 10px; width: 100%; justify-content: center; }
+
+            /* Stage 2 */
+            .filmstrip-viewport { height: 260px; }
+            .filmstrip-carousel { width: 235px; height: 230px; }
+            .film-card-3d { width: 235px; height: 230px; padding: 14px; border-radius: 18px; }
+            .film-marker-num { font-size: 0.65rem; margin-bottom: 4px; }
+            .film-title { font-size: 1.1rem; margin-bottom: 6px; }
+            .film-story { font-size: 0.8rem; line-height: 1.45; }
+            .filmstrip-nav { margin-top: 10px; gap: 12px; }
+            .btn-film-arrow { width: 34px; height: 34px; font-size: 0.95rem; }
+
+            /* Stage 3 */
+            .polaroid-sandbox { height: 330px; margin-top: 4px; }
+            .draggable-polaroid { width: 130px; padding: 5px 5px 12px; }
+            .polaroid-photo-box { height: 100px; }
+            .polaroid-text { font-size: 0.82rem; margin-top: 4px; }
+            .polaroid-sub { font-size: 0.58rem; }
+
+            /* Stage 4 */
+            .jar-container { width: 80px; height: 110px; margin: 4px auto 10px; }
+            .star-modal-card { padding: 12px 14px; margin-top: 10px; border-radius: 16px; }
+            .star-quote-num { font-size: 0.68rem; margin-bottom: 4px; }
+            .star-quote-content { font-size: 1.15rem; line-height: 1.4; }
+
+            /* Stage 5 */
+            .envelope-wrapper { width: 200px; height: 130px; margin: 0 auto 12px; }
+            .wax-seal-badge { width: 44px; height: 44px; font-size: 1.25rem; }
+            .btn-finale-action { padding: 10px 16px; font-size: 0.82rem; gap: 6px; }
+            .parchment-letter { padding: 22px 14px; border-radius: 18px; }
+            .letter-scroll-text { font-size: 1.3rem; line-height: 1.5; }
+
+            /* Navigation & Headers */
+            .ambient-audio-capsule { top: 12px; right: 12px; padding: 6px 10px; }
             .ambient-audio-capsule .audio-title { display: none; }
-            .filmstrip-viewport { height: 340px; }
-            .filmstrip-carousel { width: 280px; height: 280px; }
-            .film-card-3d { width: 280px; height: 280px; padding: 18px; }
-            .polaroid-sandbox { height: 430px; }
-            .draggable-polaroid { width: 145px; padding: 6px 6px 16px; }
-            .polaroid-photo-box { height: 125px; }
-            .polaroid-text { font-size: 1rem; }
-            .letter-scroll-text { font-size: 1.45rem; }
+            .step-progress-wrapper { top: 12px; left: 12px; gap: 8px; }
+            .step-badge { font-size: 0.65rem; padding: 4px 8px; }
+            .nav-node { width: 8px; height: 8px; }
+            .nav-node.active { width: 22px; }
+            .control-dock { bottom: 12px; padding: 5px 10px; gap: 8px; }
+            .dock-btn { padding: 6px 12px; font-size: 0.78rem; }
         }
     </style>
 </head>
@@ -1112,7 +1172,7 @@
 
     <!-- 3. Dynamic Constellation Progress Header -->
     <div class="step-progress-wrapper" id="progress-wrapper">
-        <span class="step-badge" id="step-badge-text">CHƯƠNG 1/5</span>
+        <span class="step-badge" id="step-badge-text">PHẦN 1/5</span>
         <div class="nav-constellation" id="nav-dots">
             <div class="nav-node active" data-step="1"></div>
             <div class="nav-node" data-step="2"></div>
@@ -1133,14 +1193,13 @@
                 <div class="heart-nebula-preview">
                     <span class="pulse-heart-icon">💖</span>
                 </div>
-                <p class="title-handwritten">Gửi người anh yêu nhất</p>
-                <h1 class="title-cinematic">Du Hành Vào Vũ Trụ Ký Ức</h1>
+                <p class="title-handwritten">Gửi em,</p>
+                <h1 class="title-cinematic">Trang Này Dành Cho Em</h1>
                 <p class="desc-text">
-                    Chào em bé! Giữa 8 tỷ người trên hành tinh này, việc anh tìm thấy em là điều kỳ diệu nhất mà vũ trụ đã sắp đặt. 
-                    Hãy cùng anh bắt đầu chuyến du hành đặc biệt này nhé...
+                    Mấy thứ linh tinh anh làm riêng cho em. Bật chút nhạc rồi lướt xem cùng anh nhé...
                 </p>
                 <button class="btn-warp-jump" id="btn-start-warp">
-                    <span>Bắt Đầu Du Hành ✨</span>
+                    <span>Vào xem nè ✨</span>
                 </button>
             </div>
         </section>
@@ -1150,10 +1209,10 @@
              ======================================================== -->
         <section class="stage-view" id="stage-1">
             <div class="hologram-card">
-                <p class="title-handwritten">Định mệnh sắp đặt</p>
-                <h2 class="title-cinematic">Đồng Hồ Tình Yêu Vĩnh Cửu</h2>
+                <p class="title-handwritten">16 Tháng 9, 2024</p>
+                <h2 class="title-cinematic">Mình Yêu Nhau Được...</h2>
                 <p class="desc-text" style="margin-bottom: 12px;">
-                    Từ những ngày đầu quen nhau hồi tháng 8/2024, cho đến khoảnh khắc ngày 16/09/2024 khi anh dũng cảm nói lời yêu em...
+                    Tính từ hôm em gật đầu đồng ý, vậy là cũng ngần này ngày rồi đó.
                 </p>
 
                 <!-- HOLOGRAPHIC CLOCK CUBES -->
@@ -1180,7 +1239,7 @@
                 <div class="heartbeat-interactive" id="btn-heartbeat">
                     <span style="font-size: 1.4rem; animation: heartbeat 1.2s infinite;">💓</span>
                     <span style="font-size: 0.88rem; color: #fff; font-weight: 500;">
-                        Chạm để hòa chung nhịp đập: <strong id="heartbeat-count" style="color: var(--neon-pink);">...</strong> nhịp tim đã bên nhau
+                        Bấm thử vào tim: khoảng <strong id="heartbeat-count" style="color: var(--neon-pink);">...</strong> nhịp tim đập cùng em rồi đó
                     </span>
                 </div>
             </div>
@@ -1191,44 +1250,44 @@
              ======================================================== -->
         <section class="stage-view" id="stage-2">
             <div class="hologram-card" style="max-width: 720px;">
-                <p class="title-handwritten">Từng bước chân đi qua</p>
-                <h2 class="title-cinematic">Thước Phim Không Gian 3D</h2>
+                <p class="title-handwritten">Chuyện tụi mình</p>
+                <h2 class="title-cinematic">Mấy Ngày Đáng Nhớ</h2>
                 <p class="desc-text" style="margin-bottom: 6px;">
-                    Dùng nút mũi tên hoặc vuốt để xoay vòng các cột mốc kỷ niệm trong không gian 3D.
+                    Bấm mũi tên hoặc vuốt để xem lại từ hồi mới quen nhé.
                 </p>
 
                 <div class="filmstrip-viewport">
                     <div class="filmstrip-carousel" id="filmstrip-carousel">
                         <!-- Khung phim 1 -->
                         <div class="film-card-3d" data-index="0">
-                            <span class="film-marker-num">CỘT MỐC 01 / ĐẦU THÁNG 8/2024</span>
-                            <h3 class="film-title">Ngày Đầu Tiên Quen Nhau</h3>
+                            <span class="film-marker-num">01 • ĐẦU THÁNG 8/2024</span>
+                            <h3 class="film-title">Lần Đầu Nói Chuyện</h3>
                             <p class="film-story">
-                                Những cuộc trò chuyện đầu tiên ngập ngừng nhưng ngập tràn mong ngóng. Một sự kết nối kỳ diệu bắt đầu nảy mầm giữa hai tâm hồn lạ lẫm mà thân thuộc.
+                                Mới quen còn chào hỏi ngại ngùng, vậy mà nói chuyện hợp tới mức anh cứ mong hết giờ làm để được nhắn tin với em.
                             </p>
                         </div>
                         <!-- Khung phim 2 -->
                         <div class="film-card-3d dim" data-index="1">
-                            <span class="film-marker-num">CỘT MỐC 02 / 16 THÁNG 9, 2024</span>
-                            <h3 class="film-title">Ngày Anh Chính Thức Tỏ Tình</h3>
+                            <span class="film-marker-num">02 • 16 THÁNG 9, 2024</span>
+                            <h3 class="film-title">Hôm Anh Tỏ Tình</h3>
                             <p class="film-story">
-                                Khoảnh khắc trái tim đập thình thịch khi anh lấy hết can đảm ngỏ lời. Và nụ cười cùng cái gật đầu của em đã biến ngày 16/09/2024 thành ngày đẹp nhất cuộc đời anh.
+                                Hôm ngỏ lời tim đập thình thịch, lo sốt vó. May mà em đồng ý, chứ không chắc quê tới già luôn.
                             </p>
                         </div>
                         <!-- Khung phim 3 -->
                         <div class="film-card-3d dim" data-index="2">
-                            <span class="film-marker-num">CỘT MỐC 03 / NHỮNG THÁNG NGÀY BÊN NHAU</span>
-                            <h3 class="film-title">Từng Cái Nắm Tay & Kỷ Niệm</h3>
+                            <span class="film-marker-num">03 • NHỮNG NGÀY SAU ĐÓ</span>
+                            <h3 class="film-title">Mấy Lần Hẹn Hò</h3>
                             <p class="film-story">
-                                Cùng em dạo phố, những cái ôm ấm áp giữa trời lạnh, cùng nhau chia sẻ mọi niềm vui nỗi buồn. Từng giây phút bên em đều trở thành ký ức vô giá.
+                                Chẳng cần đi đâu xa xôi, cứ chở em đi ăn mấy quán quen, lượn xe hóng gió nói chuyện linh tinh là thấy vui cả ngày rồi.
                             </p>
                         </div>
                         <!-- Khung phim 4 -->
                         <div class="film-card-3d dim" data-index="3">
-                            <span class="film-marker-num">CỘT MỐC 04 / HÔM NAY & MÃI VỀ SAU</span>
-                            <h3 class="film-title">Mỗi Ngày Đều Là Ngày Yêu</h3>
+                            <span class="film-marker-num">04 • BÂY GIỜ & SAU NÀY</span>
+                            <h3 class="film-title">Cùng Đi Tiếp Nhé</h3>
                             <p class="film-story">
-                                Cảm ơn em vì đã luôn kiên nhẫn, dịu dàng và là bến đỗ bình yên nhất sau mỗi ngày mỏi mệt của anh. Hành trình của chúng mình vẫn chỉ mới bắt đầu!
+                                Cảm ơn em vì luôn chịu đựng tính khí của anh. Mong là sau này tụi mình vẫn cứ ngồi lại nói chuyện thẳng thắn và bên nhau như thế này.
                             </p>
                         </div>
                     </div>
@@ -1247,10 +1306,10 @@
              ======================================================== -->
         <section class="stage-view" id="stage-3">
             <div class="hologram-card" style="max-width: 760px;">
-                <p class="title-handwritten">Khoảnh khắc ngưng đọng</p>
-                <h2 class="title-cinematic">Bàn Kỷ Niệm Tương Tác</h2>
+                <p class="title-handwritten">Ảnh của em</p>
+                <h2 class="title-cinematic">Mấy Tấm Nhìn Cưng Ghê</h2>
                 <p class="desc-text" style="margin-bottom: 4px;">
-                    ✨ <em>Thử dùng chuột hoặc ngón tay kéo thả các bức ảnh xung quanh. Nhấp đúp vào ảnh để phóng to!</em>
+                    ✨ <em>Có thể kéo mấy tấm ảnh này đi lung tung được đó. Bấm vào để xem rõ hơn nhé!</em>
                 </p>
 
                 <div class="polaroid-sandbox" id="polaroid-sandbox">
@@ -1260,8 +1319,8 @@
                         <div class="polaroid-photo-box">
                             <img src="Image_0C1D2C22-58E4-4C4A-98CC-48C8108FAA3B.jpeg" alt="Khoảnh khắc bên em">
                         </div>
-                        <span class="polaroid-text">Khoảnh khắc bên em ✨</span>
-                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                        <span class="polaroid-text">Tấm này cưng ghê ✨</span>
+                        <span class="polaroid-sub">🔍 Xem ảnh to</span>
                     </div>
 
                     <!-- Ảnh 2 -->
@@ -1270,8 +1329,8 @@
                         <div class="polaroid-photo-box">
                             <img src="Image_667A731C-12E6-4F5B-AEDD-F8988A429FA8.jpeg" alt="Nụ cười tỏa nắng">
                         </div>
-                        <span class="polaroid-text">Nụ cười tỏa nắng 💕</span>
-                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                        <span class="polaroid-text">Cười tươi roi rói 💕</span>
+                        <span class="polaroid-sub">🔍 Xem ảnh to</span>
                     </div>
 
                     <!-- Ảnh 3 -->
@@ -1280,8 +1339,8 @@
                         <div class="polaroid-photo-box">
                             <img src="Image_A4A057F0-3EB2-4E84-93EB-395993D73EF6.jpeg" alt="Cùng em đi muôn nơi">
                         </div>
-                        <span class="polaroid-text">Cùng em đi muôn nơi 🌷</span>
-                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                        <span class="polaroid-text">Lúc đi chơi cùng nhau 🌿</span>
+                        <span class="polaroid-sub">🔍 Xem ảnh to</span>
                     </div>
 
                     <!-- Ảnh 4 -->
@@ -1290,8 +1349,8 @@
                         <div class="polaroid-photo-box">
                             <img src="Image_E28F7FCC-A41D-47CF-8CFA-22CF83BA8EEF.jpeg" alt="Em bé đáng yêu nhất">
                         </div>
-                        <span class="polaroid-text">Em bé đáng yêu nhất 🌸</span>
-                        <span class="polaroid-sub">🔍 Nhấp để xem to</span>
+                        <span class="polaroid-text">Nhìn mặt cưng xỉu 🌸</span>
+                        <span class="polaroid-sub">🔍 Xem ảnh to</span>
                     </div>
                 </div>
             </div>
@@ -1302,10 +1361,10 @@
              ======================================================== -->
         <section class="stage-view" id="stage-4">
             <div class="hologram-card" style="max-width: 650px;">
-                <p class="title-handwritten">Tâm sự bí mật</p>
-                <h2 class="title-cinematic">Lọ Thủy Tinh Ngàn Điều Ước</h2>
+                <p class="title-handwritten">Nói nhỏ nghe nè</p>
+                <h2 class="title-cinematic">Mấy Điểm Anh Thích Ở Em</h2>
                 <p class="desc-text" style="margin-bottom: 6px;">
-                    Bên trong chiếc lọ này chứa vô vàn ngôi sao may mắn. Mỗi lần chạm là một điều kỳ diệu anh muốn nói với em...
+                    Bấm vào cái lọ để mở mấy điều dễ thương của em mà anh nhớ nhất nhé.
                 </p>
 
                 <div class="wishing-jar-stage">
@@ -1323,14 +1382,14 @@
                     </div>
 
                     <button class="btn-warp-jump" id="btn-draw-star" style="padding: 12px 28px; font-size: 0.95rem;">
-                        <span>Mở Một Ngôi Sao Bí Mật ⭐</span>
+                        <span>Mở một mẩu giấy ⭐</span>
                     </button>
 
                     <!-- Thẻ hiển thị điều ước xuất hiện khi bấm -->
                     <div class="star-modal-card" id="star-card-reveal">
-                        <div class="star-quote-num" id="star-index-text">ĐIỀU ƯỚC #01</div>
+                        <div class="star-quote-num" id="star-index-text">ĐIỀU #01</div>
                         <p class="star-quote-content" id="star-quote-text">
-                            "Nụ cười của em là liều thuốc ngọt ngào nhất, chỉ cần nhìn thấy em vui là mọi mệt mỏi trong anh đều tan biến."
+                            "Thích nhất lúc em nhìn anh cười, tuyệt đối dễ thương."
                         </p>
                     </div>
                 </div>
@@ -1342,10 +1401,10 @@
              ======================================================== -->
         <section class="stage-view" id="stage-5">
             <div class="hologram-card" style="max-width: 660px;">
-                <p class="title-handwritten">Mãi mãi về sau</p>
-                <h2 class="title-cinematic">Bức Thư Gửi Tương Lai</h2>
+                <p class="title-handwritten">Dành riêng cho em</p>
+                <h2 class="title-cinematic">Vài Lời Muốn Nói</h2>
                 <p class="desc-text" style="margin-bottom: 16px;">
-                    Chạm vào phong bì niêm phong sáp đỏ để mở bức thư tình anh đã viết riêng cho em...
+                    Bấm vào phong bì để đọc lá thư anh viết cho em nhé...
                 </p>
 
                 <!-- Phong Bì Thư Cổ Điển -->
@@ -1357,10 +1416,10 @@
 
                 <div class="finale-button-cluster">
                     <button class="btn-finale-action btn-lantern-fly" id="btn-fly-lanterns">
-                        <span>Thả Đèn Trời Cầu Nguyện 🏮</span>
+                        <span>Thả đèn trời 🏮</span>
                     </button>
                     <button class="btn-finale-action btn-heart-explosion" id="btn-heart-storm">
-                        <span>Bão Tim Vũ Trụ 💖</span>
+                        <span>Thả tim cho em ❤️</span>
                     </button>
                 </div>
             </div>
@@ -1371,11 +1430,11 @@
     <!-- 5. FLOATING DOCK (PREV / NEXT) -->
     <nav class="control-dock hidden" id="control-dock">
         <button class="dock-btn" id="dock-prev" disabled>
-            <span>← Quay lại</span>
+            <span>Quay lại</span>
         </button>
         <span style="color: rgba(255,255,255,0.2);">|</span>
         <button class="dock-btn action-primary" id="dock-next">
-            <span>Tiếp tục ✨</span>
+            <span>Tiếp theo</span>
         </button>
     </nav>
 
@@ -1393,21 +1452,21 @@
     <div class="full-letter-modal" id="letter-modal">
         <div class="parchment-letter">
             <div style="font-family: var(--font-title); font-size: 1.6rem; color: #fff; margin-bottom: 12px; font-weight: 700;">
-                Gửi Người Con Gái Anh Yêu Nhất,
+                Gửi em,
             </div>
             <div class="letter-scroll-text">
-                "Em yêu dấu của anh,<br><br>
-                Nhớ lại những ngày đầu tháng 8/2024 khi hai đứa mới quen nhau, từng tin nhắn trao nhau đều mang đến cho anh những cảm xúc thật bồi hồi và ấm áp.<br><br>
-                Rồi đến ngày 16/09/2024 định mệnh, khoảnh khắc anh lấy hết dũng khí tỏ tình và được em gật đầu đồng ý... Đó là giây phút đẹp nhất cuộc đời anh.<br><br>
-                Cảm ơn em vì đã đến bên anh, bao dung những lúc anh chưa hoàn hảo, dịu dàng sưởi ấm những ngày anh mệt mỏi. Anh không hứa một hành trình chỉ toàn màu hồng, nhưng anh hứa sẽ luôn nắm chặt tay em, cùng em đi qua mọi bão giông.<br><br>
-                Mỗi sớm mai thức dậy, anh vẫn sẽ luôn chọn yêu em. Yêu em thật nhiều!"
+                Thấm thoắt mà đã hơn 2 năm từ khi mình quen nhau rồi em nhỉ.<br><br>
+                Anh không phải người khéo miệng hay biết nói mấy lời lãng mạn, nhưng thật lòng lúc nào anh cũng thấy may mắn vì có em ở bên.<br><br>
+                Cảm ơn em vì đã luôn thấu hiểu, kiên nhẫn với những lúc anh ngơ ngác, và mang đến cho anh cảm giác bình yên đến thế.<br><br>
+                Dù có nhiều lúc mình giận nhau, cãi nhau, nhưng anh tin là mình cũng sẽ cùng nhau vượt qua được hết những bất đồng và thấu hiểu nhau hơn, để hoàn thiện bản thân mình, cùng bước đi bên nhau đến hết đời này.<br><br>
+                Thương em rất nhiều!
             </div>
             <div class="letter-sign">
-                ~ Mãi yêu em, Anh của em ❤️
+                ~ Anh của em ❤️
             </div>
             <div style="text-align: center; margin-top: 24px;">
                 <button class="dock-btn action-primary" id="btn-close-letter" style="margin: 0 auto;">
-                    <span>Khép lại bức thư & Thả đèn trời ✨</span>
+                    <span>Đóng thư lại & Thả đèn trời 🏮</span>
                 </button>
             </div>
         </div>
@@ -1797,16 +1856,16 @@
                 progressWrapper.classList.add('visible');
                 controlDock.classList.remove('hidden');
 
-                stepBadgeText.innerText = `CHƯƠNG ${currentStage}/${totalStages}`;
+                stepBadgeText.innerText = `PHẦN ${currentStage}/${totalStages}`;
                 navNodes.forEach((node, idx) => {
                     node.classList.toggle('active', (idx + 1) === currentStage);
                 });
 
                 dockPrev.disabled = (currentStage === 1);
                 if (currentStage === totalStages) {
-                    dockNext.innerHTML = '<span>Trở về Khởi nguyên 🚀</span>';
+                    dockNext.innerHTML = '<span>Xem lại từ đầu</span>';
                 } else {
-                    dockNext.innerHTML = '<span>Tiếp tục ✨</span>';
+                    dockNext.innerHTML = '<span>Tiếp theo</span>';
                 }
             }
         }
@@ -1930,10 +1989,10 @@
             const p3 = document.getElementById('pol-3');
             const p4 = document.getElementById('pol-4');
             if (p1 && p2 && p3 && p4) {
-                p1.style.left = '5%'; p1.style.top = '10px';
-                p2.style.left = '48%'; p2.style.top = '25px';
-                p3.style.left = '8%'; p3.style.top = '195px';
-                p4.style.left = '50%'; p4.style.top = '210px';
+                p1.style.left = '4%'; p1.style.top = '8px';
+                p2.style.left = '48%'; p2.style.top = '18px';
+                p3.style.left = '6%'; p3.style.top = '165px';
+                p4.style.left = '50%'; p4.style.top = '175px';
             }
         }
 
@@ -2014,12 +2073,11 @@
            STAGE 4: MAGIC WISHING JAR (RÚT NGÔI SAO ĐIỀU ƯỚC)
            ======================================================== */
         const secretQuotes = [
-            "Nụ cười của em là liều thuốc ngọt ngào nhất, chỉ cần nhìn thấy em vui là mọi mệt mỏi trong anh đều tan biến.",
-            "Anh yêu cách em hay phụng phịu làm nũng mỗi khi muốn anh dỗ dành. Lúc đó chỉ muốn ôm chặt em vào lòng thôi!",
-            "Cảm ơn em vì luôn lắng nghe, thấu hiểu và là chỗ dựa bình yên nhất sau mỗi ngày dài mỏi mệt của anh.",
-            "Dù là lúc em trang điểm lộng lẫy hay lúc mặc áo phông đơn giản ở nhà, trong mắt anh em luôn là cô gái đẹp nhất.",
-            "Từng cái nắm tay của em đều sưởi ấm bàn tay anh giữa mùa đông. Anh hứa sẽ không bao giờ buông ra đâu!",
-            "Đơn giản là vì em là chính em. Anh yêu tất cả những điều thuộc về em, hôm nay và mãi mãi về sau."
+            "Thích nhất lúc em nhìn anh cười, tuyệt đối dễ thương.",
+            "Mỗi khi tan làm về nhà mà được bé iu ra đón là mọi mệt mỏi được xua tan hết.",
+            "Thích cảm giác được em ôm mỗi khi chở em đi dạo, đi ăn.",
+            "Đồ ăn bé iu nấu là ngon nhất.",
+            "Nhiều lúc cũng bướng lắm, nhưng được cái thương anh thật lòng."
         ];
         let starQuoteIndex = 0;
 
@@ -2035,7 +2093,7 @@
             void card.offsetWidth; // trigger reflow
             card.style.animation = 'popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
 
-            numText.innerText = `ĐIỀU ƯỚC #${String(starQuoteIndex + 1).padStart(2, '0')}`;
+            numText.innerText = `ĐIỀU #${String(starQuoteIndex + 1).padStart(2, '0')}`;
             quoteText.innerText = `"${secretQuotes[starQuoteIndex]}"`;
 
             const rect = document.getElementById('wishing-jar-btn').getBoundingClientRect();
